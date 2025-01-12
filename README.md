@@ -1,3 +1,4 @@
-# Artificial Intelligence for Everyday User
+# Artificial Intelligence for Everyday Use
 
 Workshop content
+
