@@ -1,0 +1,32 @@
+.pdf,
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.pdf {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+#share_work {
+  display: block;
+  height: 100%;
+}
+.bitly-link {
+  color: black;
+  font-size: xx-large;
+}
+
+.table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#file_links {
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+}
