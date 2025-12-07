@@ -1,0 +1,8 @@
+﻿TOT - Tree of Thought
+Multiple Reasoning Paths
+Multiple Strategies to Get to a Decision
+You are the marketing director for a new sustainable coffee brand. 
+Your primary objective is to increase online sales by 25% in the next quarter. 
+Develop three distinct marketing strategies to achieve this goal. 
+For each strategy, outline its core mechanism (e.g., social media campaign, influencer partnership, SEO push), list the primary required resources, and identify a major potential risk. 
+After presenting all three strategies, conclude by recommending the single best strategy and provide a brief justification for your choice.

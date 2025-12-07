@@ -30,3 +30,12 @@ body {
   margin: 0 auto;
   height: 100%;
 }
+.menu-bg{
+  background-color: #b51701
+}
+
+.footer-details{
+  padding-bottom: 0px !important;
+  padding-bottom: 0px !important;
+  font-size: small !important;
+}
