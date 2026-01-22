@@ -45,3 +45,38 @@ body {
   padding-bottom: 0px !important;
   font-size: small !important;
 }
+
+/* Keep custom SPF buttons the same color on hover/active */
+.btn.menu-spf-bg {
+  background-color: rgb(164,129,92);
+  border-color: rgb(164,129,92);
+}
+
+.btn.menu-spf-bg:hover,
+.btn.menu-spf-bg:focus,
+.btn.menu-spf-bg:active,
+.btn.menu-spf-bg:active:focus {
+  background-color: rgb(164,129,92) !important;
+  border-color: rgb(164,129,92) !important;
+  color: #fff !important;
+}
+
+/* Keep footer at bottom for SPF pages without affecting others */
+.spf-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.spf-page main {
+  flex: 1 0 auto;
+  padding-bottom: 4.5rem; /* keep content from sitting under fixed footer */
+}
+
+.spf-page .sticky-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+}
