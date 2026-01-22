@@ -46,104 +46,109 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container my-2">
-        <h1>Asset Files</h1>
+    <main class="container my-2 flex-grow-1">
+        <h1>Assets</h1>
+        <div class="vstack gap-3 ">
 
-        <button class="btn btn-primary menu-spf-bg text-white" type="button" 
-        data-bs-toggle="collapse" data-bs-target="#collapseWeek1"
-            aria-expanded="false" aria-controls="collapseExample">
-            Open Week 1
-        </button>
-        <section class="collapse mt-3" id="collapseWeek1">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Description</th>
-                        <th scope="col">Link</th>
-                        <th scope="col">Image</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Baby Chick</th>
-                        <td><a href="./images/chickens/baby_chick.jpg" download>Download</a></td>
-                        <td>Baby Chick
-                            <br>
-                            <img src="./images/chickens/baby_chick.jpg" alt="Baby Chick" width="50" height="50">
-                        </td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Rooster</th>
-                        <td><a href="./images/chickens/rooster.png" download>Download</a></td>
-                        <td>Rooster
-                            <br>
-                            <img src="./images/chickens/rooster.png" alt="Rooster" width="50" height="50">
-                            </br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Yellow Chicken</th>
-                        <td><a href="./images/chickens/yellow_hen.png" download>Download</a></td>
-                        <td>Yellow Chicken
-                            <br>
-                            <img src="./images/chickens/yellow_hen.png" alt="Yellow Chicken" width="50" height="50">
-                            </br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Orange and Black Chicken</th>
-                        <td><a href="./images/chickens/orange_black_hen.png" download>Download</a></td>
-                        <td>Orange and Black Chicken
-                            <br>
-                            <img src="./images/chickens/orange_black_hen.png" alt="Orange Black Chicken" width="50"
-                                height="50">
-                            </br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Barred Rock Chicken</th>
-                        <td><a href="./images/chickens/barred_rock_black_white.png" download>Download</a></td>
-                        <td>Barred Rock Chicken
-                            <br>
-                            <img src="./images/chickens/barred_rock_black_white.png"
-                                alt="Barred Rock Black and White Chicken" width="50" height="50">
-                            </br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">White Chicken</th>
-                        <td><a href="./images/chickens/white_hen.png" download>Download</a></td>
-                        <td>White Chicken
-                            <br>
-                            <img src="./images/chickens/white_hen.png" alt="White Chicken" width="50" height="50">
-                            </br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Black Chicken</th>
-                        <td><a href="./images/chickens/black_hen.png" download>Download</a></td>
-                        <td>Black Chicken
-                            <br>
-                            <img src="./images/chickens/black_hen.png" alt="Black Chicken" width="50" height="50">
-                            </br>
-                        </td>
-                    </tr>
+            <button class="btn btn-primary menu-spf-bg text-white w-auto align-self-start" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsePromptLibrary" aria-expanded="false" aria-controls="collapsePromptLibrary">
+                Prompt Library
+            </button>
+            <section class="collapse mt-3" id="collapsePromptLibrary">
+                <a href="https://github.com/rebeccapeltz/aiwork/blob/main/SPF/prompt_library.md" target="_blank">Prompt
+                    Library Markdown<a>
+            </section>
+
+            <button class="btn btn-primary menu-spf-bg text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseWeek1" aria-expanded="false" aria-controls="collapseWeek1">
+                Open Week 1
+            </button>
+            <section class="collapse mt-3" id="collapseWeek1">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">Link</th>
+                            <th scope="col">Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Baby Chick</th>
+                            <td><a href="./images/chickens/baby_chick.jpg" download>Download</a></td>
+                            <td>Baby Chick
+                                <br>
+                                <img src="./images/chickens/baby_chick.jpg" alt="Baby Chick" width="50" height="50">
+                            </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Rooster</th>
+                            <td><a href="./images/chickens/rooster.png" download>Download</a></td>
+                            <td>Rooster
+                                <br>
+                                <img src="./images/chickens/rooster.png" alt="Rooster" width="50" height="50">
+                                </br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Yellow Chicken</th>
+                            <td><a href="./images/chickens/yellow_hen.png" download>Download</a></td>
+                            <td>Yellow Chicken
+                                <br>
+                                <img src="./images/chickens/yellow_hen.png" alt="Yellow Chicken" width="50" height="50">
+                                </br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Orange and Black Chicken</th>
+                            <td><a href="./images/chickens/orange_black_hen.png" download>Download</a></td>
+                            <td>Orange and Black Chicken
+                                <br>
+                                <img src="./images/chickens/orange_black_hen.png" alt="Orange Black Chicken" width="50"
+                                    height="50">
+                                </br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Barred Rock Chicken</th>
+                            <td><a href="./images/chickens/barred_rock_black_white.png" download>Download</a></td>
+                            <td>Barred Rock Chicken
+                                <br>
+                                <img src="./images/chickens/barred_rock_black_white.png"
+                                    alt="Barred Rock Black and White Chicken" width="50" height="50">
+                                </br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">White Chicken</th>
+                            <td><a href="./images/chickens/white_hen.png" download>Download</a></td>
+                            <td>White Chicken
+                                <br>
+                                <img src="./images/chickens/white_hen.png" alt="White Chicken" width="50" height="50">
+                                </br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Black Chicken</th>
+                            <td><a href="./images/chickens/black_hen.png" download>Download</a></td>
+                            <td>Black Chicken
+                                <br>
+                                <img src="./images/chickens/black_hen.png" alt="Black Chicken" width="50" height="50">
+                                </br>
+                            </td>
+                        </tr>
 
 
-                </tbody>
+                    </tbody>
 
-            </table>
-        </section>
+                </table>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
-    <!-- <footer class="bg-dark text-white text-center py-3 position-sticky bottom-0 w-100 footer-details">
-        <div class="container">
-            <p>&copy; 2026 Scratch and Peck Feeds AI Prompt Fluency</p>
-        </div>
-    </footer> -->
-     <footer class="bg-dark text-white text-center py-1 mt-auto">
+    <footer class="bg-dark text-white text-center py-1 mt-auto">
         <div class="container text-center">
             <p>&copy; 2026 Scratch and Peck Feeds AI Prompt Fluency</p>
         </div>
