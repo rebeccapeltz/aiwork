@@ -46,22 +46,3 @@ body {
   font-size: small !important;
 }
 
-/* Keep footer at bottom for SPF pages without affecting others */
-.spf-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.spf-page main {
-  flex: 1 0 auto;
-  padding-bottom: 4.5rem; /* keep content from sitting under fixed footer */
-}
-
-.spf-page .sticky-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1030;
-}

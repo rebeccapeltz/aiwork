@@ -52,20 +52,26 @@
     <main class="container my-2 flex-grow-1">
         <h1>Assets</h1>
         <div class="vstack gap-3 ">
-
-            <button class="btn btn-primary menu-spf-bg text-white w-auto align-self-start" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapsePromptLibrary" aria-expanded="false" aria-controls="collapsePromptLibrary">
-                Prompt Library
-            </button>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-primary menu-spf-bg text-white w-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsePromptLibrary" aria-expanded="false" aria-controls="collapsePromptLibrary">
+                    Prompt Library
+                </button>
+                <button class="btn btn-primary menu-spf-bg text-white w-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWeek1" aria-expanded="false" aria-controls="collapseWeek1">
+                    Open Week 1
+                </button>
+                <button class="btn btn-primary menu-spf-bg text-white w-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWeek2" aria-expanded="false" aria-controls="collapseWeek2">
+                    Open Week 2
+                </button>
+            </div>
             <section class="collapse mt-3" id="collapsePromptLibrary">
-                <a href="https://github.com/rebeccapeltz/aiwork/blob/main/SPF/prompt_library.md" target="_blank">Prompt
-                    Library Markdown<a>
-            </section>
+                <div> <a href="https://github.com/rebeccapeltz/aiwork/blob/main/SPF/prompt_library.md"
+                        target="_blank">Prompt
+                        Library Markdown<a></div>
 
-            <button class="btn btn-primary menu-spf-bg text-white" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseWeek1" aria-expanded="false" aria-controls="collapseWeek1">
-                Open Week 1
-            </button>
+            </section>
             <section class="collapse mt-3" id="collapseWeek1">
                 <table class="table table-striped">
                     <thead>
@@ -142,7 +148,7 @@
                             </td>
                         </tr>
 
-                          <tr>
+                        <tr>
                             <th scope="row">Dashboard</th>
                             <td><a href="./images/dashboard.jpg" download>Download</a></td>
                             <td>Dashboard
@@ -164,6 +170,66 @@
 
                 </table>
             </section>
+            <section class="collapse mt-3" id="collapseWeek2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">Link</th>
+                             <th scope="col">Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Disciplinary Action SOP</th>
+                            <td><a href="./documents/sop/Disciplinary_Action_SOP.pdf" download>Download</a></td>
+                            </td>
+                             <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Employee Onboarding SOP</th>
+                            <td><a href="./documents/sop/Employee_Onboarding_SOP.pdf" download>Download</a></td>
+                            </td>
+                             <td></td>
+                        </tr>
+                         <tr>
+                            <th scope="row">HealthCare SOP</th>
+                            <td><a href="./documents/sop/Healthcare_Benefits_SOP.pdf" download>Download</a></td>
+                            </td>
+                             <td></td>
+                        </tr>
+                         <tr>
+                            <th scope="row">Recognition and Rewards SOP</th>
+                            <td><a href="./documents/sop/Recognition_and_Rewards_SOP.pdf" download>Download</a></td>
+                            </td>
+                             <td></td>
+                        </tr>
+                         <tr>
+                            <th scope="row">Recruitment and Referral SOP</th>
+                            <td><a href="./documents/sop/Recruitment_and_Referral_SOP.pdf" download>Download</a></td>
+                            </td>
+                            <td></td>
+                        </tr>
+                          <tr>
+                            <th scope="row">Squirrel House Construction Flyer</th>
+                            <td><a href="./documents/Squirrel_Home_Construction_Flyer.pdf" download>Download</a></td>
+                            </td>
+                            <td></td>
+                        </tr>
+                         <tr>
+                            <th scope="row">Squirrel House</th>
+                            <td><a href="./images/squirrel_house.png" download>Download</a></td>
+                            <td>Squirrel House
+                                <br>
+                                <img src="./images/squirrel_house.png" width="50" height="50" alt="Squirrel House" >
+                                </br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
         </div>
     </main>
 
