@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Movies Financial Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #fef5f5 0%, #eff6ff 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: #dc2626;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.2em;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            font-weight: 600;
+            color: #374151;
+        }
+        select {
+            padding: 10px 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        select:hover {
+            border-color: #dc2626;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid;
+        }
+        .stat-card.red { border-left-color: #dc2626; }
+        .stat-card.blue { border-left-color: #2563eb; }
+        .stat-card.green { border-left-color: #16a34a; }
+        .stat-card.purple { border-left-color: #9333ea; }
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            color: #1f2937;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .chart-container.full {
+            grid-column: 1 / -1;
+        }
+        .chart-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        canvas {
+            max-height: 400px;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        th {
+            background: #f3f4f6;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #d1d5db;
+        }
+        th.right, td.right {
+            text-align: right;
+        }
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        tr:hover {
+            background: #f9fafb;
+        }
+        .insights {
+            background: #eff6ff;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #2563eb;
+            margin-top: 30px;
+        }
+        .insights h3 {
+            font-size: 1.5em;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        .insights ul {
+            list-style: none;
+        }
+        .insights li {
+            margin-bottom: 12px;
+            color: #374151;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+        .insights li::before {
+            content: "•";
+            color: #2563eb;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .roi-positive { color: #16a34a; font-weight: 600; }
+        .roi-medium { color: #2563eb; font-weight: 600; }
+        .roi-negative { color: #dc2626; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Marvel Movies Financial Dashboard</h1>
+            <p class="subtitle">Comprehensive analysis of box office performance, budgets, and geographic distribution</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="distributorSelect">Distributor:</label>
+                <select id="distributorSelect" onchange="updateDashboard()">
+                    <option value="All">All</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="metricSelect">Top Movies By:</label>
+                <select id="metricSelect" onchange="updateTopMovies()">
+                    <option value="roi">ROI %</option>
+                    <option value="profit">Profit</option>
+                    <option value="worldwide">Revenue</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card red">
+                <div class="stat-label">Total Movies</div>
+                <div class="stat-value" id="statMovies">0</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="stat-label">Total Budget</div>
+                <div class="stat-value" id="statBudget">$0M</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-label">Total Revenue</div>
+                <div class="stat-value" id="statRevenue">$0M</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-label">Average ROI</div>
+                <div class="stat-value" id="statROI">0%</div>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-container">
+                <h2 class="chart-title">Distributor Performance</h2>
+                <canvas id="distributorChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2 class="chart-title">Geographic Revenue Distribution</h2>
+                <canvas id="geoChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-container full">
+            <h2 class="chart-title">Revenue Trends Over Time</h2>
+            <canvas id="timelineChart"></canvas>
+        </div>
+
+        <div class="chart-container full">
+            <h2 class="chart-title">Budget vs Revenue (Color = ROI)</h2>
+            <canvas id="scatterChart"></canvas>
+        </div>
+
+        <div class="chart-container full">
+            <h2 class="chart-title" id="topMoviesTitle">Top 10 Movies by ROI</h2>
+            <table id="topMoviesTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th class="right">Budget</th>
+                        <th class="right">Revenue</th>
+                        <th class="right">Profit</th>
+                        <th class="right">ROI</th>
+                    </tr>
+                </thead>
+                <tbody id="topMoviesBody"></tbody>
+            </table>
+        </div>
+
+        <div class="insights">
+            <h3>Key Insights & Correlations</h3>
+            <ul>
+                <li><strong>Budget-Revenue Correlation:</strong> Higher budgets generally correlate with higher revenues, but ROI varies significantly. Some lower-budget films achieve exceptional returns.</li>
+                <li><strong>Geographic Split:</strong> International markets have become increasingly important, with many recent films earning more abroad than in North America.</li>
+                <li><strong>Distributor Trends:</strong> Walt Disney Studios (MCU) dominates in both volume and revenue, showing the power of connected universe storytelling.</li>
+                <li><strong>ROI Leaders:</strong> Deadpool, The Avengers, and Venom demonstrate that creative risks and strong marketing can yield extraordinary returns.</li>
+                <li><strong>Temporal Pattern:</strong> Revenue has grown substantially over time, with recent MCU films dominating the all-time highest grossing list.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const rawData = `Title,Distributor,ReleaseDateUS,Budget,OpeningWeekendNorthAmerica,NorthAmerica,OtherTerritories,Worldwide
+Howard the Duck,Universal Pictures,1986-08-01 00:00:00,37000000,5070136,16295774,21667000,37962774
+Blade,New Line Cinema,1998-08-21 00:00:00,45000000,17073856,70087718,61095812,131183530
+X-Men,20th Century Fox,2000-07-14 00:00:00,75000000,54471475,157299717,139039810,296339527
+Blade II,New Line Cinema,2002-03-22 00:00:00,54000000,32528016,82348319,72661713,155010032
+Spider-Man,Sony Pictures,2002-05-03 00:00:00,139000000,114844116,403706375,418002176,821708551
+Daredevil,20th Century Fox,2003-02-14 00:00:00,78000000,40310419,102543518,76636200,179179718
+X2,20th Century Fox,2003-05-02 00:00:00,110000000,85558731,214949694,192761855,407711549
+Hulk,Universal Pictures,2003-06-20 00:00:00,137000000,62128420,132177234,113183246,245360480
+The Punisher,Lionsgate Films,2004-04-16 00:00:00,33000000,13834527,33810189,20889916,54700105
+Spider-Man 2,Sony Pictures,2004-06-30 00:00:00,200000000,88156227,373585825,415390628,788976453
+Blade: Trinity,New Line Cinema,2004-12-08 00:00:00,65000000,16061271,52411906,76493460,128905366
+Elektra,20th Century Fox,2005-01-14 00:00:00,43000000,12804793,24409722,32271844,56681566
+Fantastic Four,20th Century Fox,2005-07-08 00:00:00,100000000,56061504,154696080,175883639,330579719
+X-Men: The Last Stand,20th Century Fox,2006-05-26 00:00:00,210000000,102750665,234362462,224997093,459359555
+Ghost Rider,Sony Pictures,2007-02-16 00:00:00,110000000,45388836,115802596,112935797,228738393
+Spider-Man 3,Sony Pictures,2007-05-04 00:00:00,258000000,151116516,336530303,554341323,890871626
+Fantastic Four: Rise of the Silver Surfer,20th Century Fox,2007-06-15 00:00:00,130000000,58051684,131921738,169991393,301913131
+Iron Man,Paramount Pictures,2008-05-02 00:00:00,140000000,98618668,318412101,266762121,585174222
+The Incredible Hulk,Universal Pictures,2008-06-13 00:00:00,150000000,55414050,134806913,128620638,263427551
+Punisher: War Zone,Lionsgate Films,2008-12-05 00:00:00,35000000,4271451,8050977,2059089,10110066
+X-Men Origins: Wolverine,20th Century Fox,2009-05-01 00:00:00,150000000,85058003,179883157,193740497,373623654
+Iron Man 2,Paramount Pictures,2010-05-07 00:00:00,200000000,128122480,312433331,311500000,623933331
+Thor,Paramount Pictures,2011-05-06 00:00:00,150000000,65723338,181030624,268295994,449326618
+X-Men: First Class,20th Century Fox,2011-06-03 00:00:00,160000000,55101604,146408305,207215819,353624124
+Captain America: The First Avenger,Paramount Pictures,2011-07-22 00:00:00,140000000,65058524,176654505,193915269,370569774
+Ghost Rider: Spirit of Vengeance,Sony Pictures,2012-02-17 00:00:00,57000000,22115334,51774002,80171699,131945701
+The Avengers,Walt Disney Studios,2012-05-04 00:00:00,220000000,207438708,623357910,895455154,1518813064
+The Amazing Spider-Man,Sony Pictures,2012-07-03 00:00:00,230000000,62004688,262030663,495191855,757222518
+Iron Man 3,Walt Disney Studios,2013-05-03 00:00:00,200000000,174144585,409013994,805797258,1214811252
+The Wolverine,20th Century Fox,2013-07-26 00:00:00,120000000,53113752,132556852,282271394,414828246
+Thor: The Dark World,Walt Disney Studios,2013-11-08 00:00:00,170000000,85737841,206362140,438210660,644572800
+Captain America: The Winter Soldier,Walt Disney Studios,2014-04-04 00:00:00,170000000,95023721,259766572,454497695,714264267
+The Amazing Spider-Man 2,Sony Pictures,2014-05-02 00:00:00,293000000,91608337,202853933,505205593,708059526
+X-Men: Days of Future Past,20th Century Fox,2014-05-23 00:00:00,205000000,90823660,233921534,513846143,747767677
+Guardians of the Galaxy,Walt Disney Studios,2014-08-01 00:00:00,170000000,94320883,333714112,439531158,773245270
+Avengers: Age of Ultron,Walt Disney Studios,2015-05-01 00:00:00,365000000,191271109,459005868,949219961,1408225829
+Ant-Man,Walt Disney Studios,2015-07-17 00:00:00,130000000,57225526,180202163,339109802,519311965
+Fantastic Four,20th Century Fox,2015-08-07 00:00:00,120000000,25685737,56117548,111774949,167892497
+Deadpool,20th Century Fox,2016-02-12 00:00:00,58000000,132434639,363070709,419851027,782921736
+Captain America: Civil War,Walt Disney Studios,2016-05-06 00:00:00,250000000,179139142,408084349,745220146,1153304495
+X-Men: Apocalypse,20th Century Fox,2016-05-27 00:00:00,178000000,65769562,155442489,388408635,543851124
+Doctor Strange,Walt Disney Studios,2016-11-04 00:00:00,165000000,85058311,232641920,445076475,677718395
+Logan,20th Century Fox,2017-03-03 00:00:00,97000000,88411916,226277068,389632668,615909736
+Guardians of the Galaxy Vol. 2,Walt Disney Studios,2017-05-05 00:00:00,200000000,146510104,389813101,473938168,863751269
+Spider-Man: Homecoming,Sony Pictures,2017-07-07 00:00:00,175000000,117027503,334201140,545965784,880166924
+Thor: Ragnarok,Walt Disney Studios,2017-11-03 00:00:00,180000000,122744989,315058289,538914021,853972310
+Black Panther,Walt Disney Studios,2018-02-16 00:00:00,200000000,202003951,700426566,646853595,1347280161
+Avengers: Infinity War,Walt Disney Studios,2018-04-27 00:00:00,321000000,257698183,678815482,1369544272,2048359754
+Ant-Man and the Wasp,Walt Disney Studios,2018-07-06 00:00:00,162000000,75812205,216648740,406025399,622674139
+Venom,Sony Pictures,2018-10-05 00:00:00,100000000,80255756,213515506,642668304,856183810
+Spider-Man: Into the Spider-Verse,Sony Pictures,2018-12-14 00:00:00,90000000,35363376,190241310,194338149,384579459
+Captain Marvel,Walt Disney Studios,2019-03-08 00:00:00,160000000,153433423,426829839,701416011,1128245850
+Avengers: Endgame,Walt Disney Studios,2019-04-26 00:00:00,356000000,357115007,858373000,1939427564,2797800564
+Spider-Man: Far From Home,Sony Pictures,2019-07-02 00:00:00,160000000,92579212,390532085,741395911,1131927996
+Dark Phoenix,20th Century Fox,2019-06-07 00:00:00,200000000,32826341,65845974,186045805,251891779
+The New Mutants,20th Century Fox,2020-08-28 00:00:00,80000000,3172853,23837445,22817847,46655292`;
+
+        let movies = [];
+        let charts = {};
+        
+        function parseData() {
+            const lines = rawData.trim().split('\n');
+            movies = lines.slice(1).map(line => {
+                const parts = line.split(',');
+                const budget = parseFloat(parts[3]);
+                const northAmerica = parseFloat(parts[5]);
+                const otherTerritories = parseFloat(parts[6]);
+                const worldwide = parseFloat(parts[7]);
+                const year = parseInt(parts[2].substring(0, 4));
+                
+                return {
+                    title: parts[0],
+                    distributor: parts[1],
+                    year: year,
+                    budget: budget,
+                    northAmerica: northAmerica,
+                    otherTerritories: otherTerritories,
+                    worldwide: worldwide,
+                    roi: ((worldwide - budget) / budget * 100),
+                    profit: worldwide - budget
+                };
+            });
+            
+            // Populate distributor dropdown
+            const distributors = ['All', ...new Set(movies.map(m => m.distributor))].sort();
+            const select = document.getElementById('distributorSelect');
+            distributors.forEach(d => {
+                const option = document.createElement('option');
+                option.value = d;
+                option.textContent = d;
+                select.appendChild(option);
+            });
+        }
+        
+        function formatCurrency(value) {
+            const millions = value / 1000000;
+            if (millions >= 1000) return `$${(millions / 1000).toFixed(1)}B`;
+            return `$${millions.toFixed(0)}M`;
+        }
+        
+        function formatPercent(value) {
+            return `${value.toFixed(1)}%`;
+        }
+        
+        function getFilteredMovies() {
+            const distributor = document.getElementById('distributorSelect').value;
+            if (distributor === 'All') return movies;
+            return movies.filter(m => m.distributor === distributor);
+        }
+        
+        function updateStats() {
+            const filtered = getFilteredMovies();
+            const totalBudget = filtered.reduce((sum, m) => sum + m.budget, 0);
+            const totalRevenue = filtered.reduce((sum, m) => sum + m.worldwide, 0);
+            const totalProfit = filtered.reduce((sum, m) => sum + m.profit, 0);
+            const avgROI = (totalProfit / totalBudget * 100);
+            
+            document.getElementById('statMovies').textContent = filtered.length;
+            document.getElementById('statBudget').textContent = formatCurrency(totalBudget);
+            document.getElementById('statRevenue').textContent = formatCurrency(totalRevenue);
+            document.getElementById('statROI').textContent = formatPercent(avgROI);
+        }
+        
+        function updateDistributorChart() {
+            const grouped = {};
+            movies.forEach(m => {
+                if (!grouped[m.distributor]) {
+                    grouped[m.distributor] = { budget: 0, revenue: 0 };
+                }
+                grouped[m.distributor].budget += m.budget / 1000000;
+                grouped[m.distributor].revenue += m.worldwide / 1000000;
+            });
+            
+            const sorted = Object.entries(grouped)
+                .sort((a, b) => b[1].revenue - a[1].revenue)
+                .slice(0, 8);
+            
+            const ctx = document.getElementById('distributorChart');
+            if (charts.distributor) charts.distributor.destroy();
+            
+            charts.distributor = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sorted.map(([name]) => name),
+                    datasets: [
+                        {
+                            label: 'Revenue ($M)',
+                            data: sorted.map(([, data]) => data.revenue),
+                            backgroundColor: '#3b82f6'
+                        },
+                        {
+                            label: 'Budget ($M)',
+                            data: sorted.map(([, data]) => data.budget),
+                            backgroundColor: '#ef4444'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+        
+        function updateGeoChart() {
+            const filtered = getFilteredMovies();
+            const totalNA = filtered.reduce((sum, m) => sum + m.northAmerica, 0);
+            const totalIntl = filtered.reduce((sum, m) => sum + m.otherTerritories, 0);
+            
+            const ctx = document.getElementById('geoChart');
+            if (charts.geo) charts.geo.destroy();
+            
+            charts.geo = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['North America', 'International'],
+                    datasets: [{
+                        data: [totalNA, totalIntl],
+                        backgroundColor: ['#ef4444', '#3b82f6']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = formatCurrency(context.parsed);
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percent = ((context.parsed / total) * 100).toFixed(1);
+                                    return `${label}: ${value} (${percent}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateTimelineChart() {
+            const filtered = getFilteredMovies();
+            const byYear = {};
+            filtered.forEach(m => {
+                if (!byYear[m.year]) {
+                    byYear[m.year] = { revenue: 0, budget: 0 };
+                }
+                byYear[m.year].revenue += m.worldwide / 1000000;
+                byYear[m.year].budget += m.budget / 1000000;
+            });
+            
+            const sorted = Object.entries(byYear).sort((a, b) => a[0] - b[0]);
+            
+            const ctx = document.getElementById('timelineChart');
+            if (charts.timeline) charts.timeline.destroy();
+            
+            charts.timeline = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: sorted.map(([year]) => year),
+                    datasets: [
+                        {
+                            label: 'Revenue ($M)',
+                            data: sorted.map(([, data]) => data.revenue),
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Budget ($M)',
+                            data: sorted.map(([, data]) => data.budget),
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+        
+        function updateScatterChart() {
+            const filtered = getFilteredMovies();
+            const data = filtered.map(m => ({
+                x: m.budget / 1000000,
+                y: m.worldwide / 1000000,
+                roi: m.roi,
+                title: m.title
+            }));
+            
+            const ctx = document.getElementById('scatterChart');
+            if (charts.scatter) charts.scatter.destroy();
+            
+            charts.scatter = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Movies',
+                        data: data,
+                        backgroundColor: data.map(d => 
+                            d.roi > 200 ? '#16a34a' : 
+                            d.roi > 100 ? '#3b82f6' : '#ef4444'
+                        ),
+                        pointRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: { 
+                            title: { display: true, text: 'Budget ($M)' },
+                            beginAtZero: true
+                        },
+                        y: { 
+                            title: { display: true, text: 'Revenue ($M)' },
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const point = context.raw;
+                                    return [
+                                        point.title,
+                                        `Budget: $${point.x.toFixed(0)}M`,
+                                        `Revenue: $${point.y.toFixed(0)}M`,
+                                        `ROI: ${point.roi.toFixed(1)}%`
+                                    ];
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateTopMovies() {
+            const metric = document.getElementById('metricSelect').value;
+            const filtered = getFilteredMovies();
+            const sorted = [...filtered].sort((a, b) => b[metric] - a[metric]).slice(0, 10);
+            
+            const titles = {
+                roi: 'ROI',
+                profit: 'Profit',
+                worldwide: 'Revenue'
+            };
+            document.getElementById('topMoviesTitle').textContent = `Top 10 Movies by ${titles[metric]}`;
+            
+            const tbody = document.getElementById('topMoviesBody');
+            tbody.innerHTML = sorted.map((m, i) => `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${m.title}</td>
+                    <td>${m.year}</td>
+                    <td class="right">${formatCurrency(m.budget)}</td>
+                    <td class="right">${formatCurrency(m.worldwide)}</td>
+                    <td class="right">${formatCurrency(m.profit)}</td>
+                    <td class="right ${m.roi > 200 ? 'roi-positive' : m.roi > 100 ? 'roi-medium' : 'roi-negative'}">
+                        ${formatPercent(m.roi)}
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function updateDashboard() {
+            updateStats();
+            updateGeoChart();
+            updateTimelineChart();
+            updateScatterChart();
+            updateTopMovies();
+        }
+        
+        // Initialize
+        parseData();
+        updateStats();
+        updateDistributorChart();
+        updateGeoChart();
+        updateTimelineChart();
+        updateScatterChart();
+        updateTopMovies();
+    </script>
+</body>
+</html>
