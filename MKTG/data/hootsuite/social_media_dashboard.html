@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Analytics Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-change {
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .stat-change.positive {
+            color: #10b981;
+        }
+
+        .stat-change.negative {
+            color: #ef4444;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .chart-container.tall {
+            height: 400px;
+        }
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-group select {
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: 2px solid #e5e7eb;
+            font-size: 1em;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-group select:hover {
+            border-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Social Media Analytics Dashboard</h1>
+            <p class="subtitle">Interactive visualization of social media performance metrics</p>
+        </header>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>Time Period:</label>
+                <select id="timeRange">
+                    <option value="all">All Time</option>
+                    <option value="6">Last 6 Months</option>
+                    <option value="3">Last 3 Months</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div class="charts-grid">
+            <div class="chart-card full-width">
+                <h3 class="chart-title">Follower Growth & Engagement Trend</h3>
+                <div class="chart-container tall">
+                    <canvas id="followersChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">Engagement Metrics</h3>
+                <div class="chart-container">
+                    <canvas id="engagementChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">Reach & Impressions</h3>
+                <div class="chart-container">
+                    <canvas id="reachChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">Content Performance</h3>
+                <div class="chart-container">
+                    <canvas id="contentChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">Post Engagement Breakdown</h3>
+                <div class="chart-container">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Embedded CSV data
+        const csvData = `Period_YYYYMM,Average post engageme,Followers,Inbound messages,New followers,Page & profile impressions,Page & profile reach,Post comments & replies,Post impressions,Post link clicks,Post reach,Post reactions & likes,Post video views,Posts
+202501,4.07,107512,249,1480,1828186,937891,102,219590,0,156285,2873,71935,108
+202502,3.95,104381,242,1437,1774938,910574,99,213194,0,151733,2789,69840,105
+202503,4.07,107609,250,1481,1829833,938736,102,219788,0,156426,2875,72000,108
+202504,3.95,104475,243,1438,1776537,911394,99,213386,0,151870,2791,69903,105
+202505,4.07,107706,251,1482,1831481,939581,102,219986,0,156567,2877,72065,108
+202506,3.95,104569,244,1439,1778137,912215,99,213579,0,152007,2793,69966,105
+202507,4.07,107803,252,1483,1833131,940428,102,220185,0,156708,2879,72130,108
+202508,3.95,104663,245,1440,1779739,913037,99,213772,0,152144,2795,70029,105
+202509,4.07,107900,253,1485,1834782,941275,102,220383,0,156849,2881,72195,108
+202510,3.95,104757,246,1442,1781342,913859,99,213964,0,152281,2797,70092,105
+202511,4.07,107997,254,1487,1836435,942123,102,220581,0,156991,2884,72260,108
+202512,3.95,104851,247,1444,1782947,914683,99,214156,0,152418,2800,70155,105
+202601,4.07,108094,255,1489,1838090,942972,102,220779,0,157132,2887,72325,108`;
+
+        let allData = [];
+        let charts = {};
+
+        // Parse CSV data
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = values[index];
+                });
+                data.push(obj);
+            }
+            
+            return data;
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toLocaleString();
+        }
+
+        function formatPeriod(period) {
+            const year = period.substring(0, 4);
+            const month = period.substring(4, 6);
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return monthNames[parseInt(month) - 1] + ' ' + year;
+        }
+
+        function calculateChange(current, previous) {
+            if (!previous || previous === 0) return 0;
+            return ((current - previous) / previous * 100).toFixed(1);
+        }
+
+        function updateStats(data) {
+            const statsGrid = document.getElementById('statsGrid');
+            const latest = data[data.length - 1];
+            const previous = data[data.length - 2];
+
+            const stats = [
+                {
+                    label: 'Total Followers',
+                    value: parseInt(latest.Followers),
+                    change: calculateChange(parseInt(latest.Followers), previous ? parseInt(previous.Followers) : 0)
+                },
+                {
+                    label: 'Avg Engagement',
+                    value: parseFloat(latest['Average post engageme']).toFixed(2),
+                    change: calculateChange(parseFloat(latest['Average post engageme']), previous ? parseFloat(previous['Average post engageme']) : 0)
+                },
+                {
+                    label: 'Page Reach',
+                    value: parseInt(latest['Page & profile reach']),
+                    change: calculateChange(parseInt(latest['Page & profile reach']), previous ? parseInt(previous['Page & profile reach']) : 0)
+                },
+                {
+                    label: 'New Followers',
+                    value: parseInt(latest['New followers']),
+                    change: calculateChange(parseInt(latest['New followers']), previous ? parseInt(previous['New followers']) : 0)
+                },
+                {
+                    label: 'Total Posts',
+                    value: parseInt(latest.Posts),
+                    change: calculateChange(parseInt(latest.Posts), previous ? parseInt(previous.Posts) : 0)
+                },
+                {
+                    label: 'Video Views',
+                    value: parseInt(latest['Post video views']),
+                    change: calculateChange(parseInt(latest['Post video views']), previous ? parseInt(previous['Post video views']) : 0)
+                }
+            ];
+
+            statsGrid.innerHTML = stats.map(stat => {
+                const changeClass = parseFloat(stat.change) >= 0 ? 'positive' : 'negative';
+                const changeSymbol = parseFloat(stat.change) >= 0 ? '↑' : '↓';
+                return `
+                    <div class="stat-card">
+                        <div class="stat-label">${stat.label}</div>
+                        <div class="stat-value">${formatNumber(stat.value)}</div>
+                        <div class="stat-change ${changeClass}">${changeSymbol} ${Math.abs(stat.change)}%</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function createFollowersChart(data) {
+            const ctx = document.getElementById('followersChart').getContext('2d');
+            
+            if (charts.followers) {
+                charts.followers.destroy();
+            }
+
+            charts.followers = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => formatPeriod(d.Period_YYYYMM)),
+                    datasets: [{
+                        label: 'Followers',
+                        data: data.map(d => parseInt(d.Followers)),
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        yAxisID: 'y',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Average Engagement',
+                        data: data.map(d => parseFloat(d['Average post engageme'])),
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        yAxisID: 'y1',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Followers'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Engagement'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createEngagementChart(data) {
+            const ctx = document.getElementById('engagementChart').getContext('2d');
+            
+            if (charts.engagement) {
+                charts.engagement.destroy();
+            }
+
+            charts.engagement = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => formatPeriod(d.Period_YYYYMM)),
+                    datasets: [{
+                        label: 'Reactions & Likes',
+                        data: data.map(d => parseInt(d['Post reactions & likes'])),
+                        backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                    }, {
+                        label: 'Comments & Replies',
+                        data: data.map(d => parseInt(d['Post comments & replies'])),
+                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function createReachChart(data) {
+            const ctx = document.getElementById('reachChart').getContext('2d');
+            
+            if (charts.reach) {
+                charts.reach.destroy();
+            }
+
+            charts.reach = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => formatPeriod(d.Period_YYYYMM)),
+                    datasets: [{
+                        label: 'Page Reach',
+                        data: data.map(d => parseInt(d['Page & profile reach'])),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Impressions',
+                        data: data.map(d => parseInt(d['Page & profile impressions'])),
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                }
+            });
+        }
+
+        function createContentChart(data) {
+            const ctx = document.getElementById('contentChart').getContext('2d');
+            
+            if (charts.content) {
+                charts.content.destroy();
+            }
+
+            charts.content = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => formatPeriod(d.Period_YYYYMM)),
+                    datasets: [{
+                        label: 'Posts Published',
+                        data: data.map(d => parseInt(d.Posts)),
+                        backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                        yAxisID: 'y',
+                    }, {
+                        label: 'Video Views',
+                        data: data.map(d => parseInt(d['Post video views'])),
+                        backgroundColor: 'rgba(236, 72, 153, 0.8)',
+                        yAxisID: 'y1',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false,
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createPieChart(data) {
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            
+            if (charts.pie) {
+                charts.pie.destroy();
+            }
+
+            const latest = data[data.length - 1];
+
+            charts.pie = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Reactions & Likes', 'Video Views', 'Comments & Replies', 'Inbound Messages'],
+                    datasets: [{
+                        data: [
+                            parseInt(latest['Post reactions & likes']),
+                            parseInt(latest['Post video views']),
+                            parseInt(latest['Post comments & replies']),
+                            parseInt(latest['Inbound messages'])
+                        ],
+                        backgroundColor: [
+                            'rgba(239, 68, 68, 0.8)',
+                            'rgba(236, 72, 153, 0.8)',
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(16, 185, 129, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        }
+
+        function filterData(months) {
+            if (months === 'all') {
+                return allData;
+            }
+            return allData.slice(-parseInt(months));
+        }
+
+        function updateDashboard(data) {
+            updateStats(data);
+            createFollowersChart(data);
+            createEngagementChart(data);
+            createReachChart(data);
+            createContentChart(data);
+            createPieChart(data);
+        }
+
+        function initializeDashboard() {
+            allData = parseCSV(csvData);
+            updateDashboard(allData);
+
+            document.getElementById('timeRange').addEventListener('change', function(e) {
+                const filteredData = filterData(e.target.value);
+                updateDashboard(filteredData);
+            });
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initializeDashboard);
+    </script>
+</body>
+</html>
