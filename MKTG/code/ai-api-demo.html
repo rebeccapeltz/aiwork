@@ -22,579 +22,122 @@
     --red: #c0392b;
     --yellow: #d4a017;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  /* HEADER */
-  header {
-    background: var(--ink);
-    color: var(--bg);
-    padding: 28px 40px 24px;
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+  header { background: var(--ink); color: var(--bg); padding: 28px 40px 24px; display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
   header .title-block { flex: 1; min-width: 200px; }
-
-  header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2rem;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-  }
-
-  header h1 em {
-    font-style: italic;
-    color: #c4a97a;
-  }
-
-  header p.subtitle {
-    margin-top: 4px;
-    color: #a89880;
-    font-size: 0.85rem;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-  }
-
-  .lesson-tag {
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 2px;
-    align-self: flex-start;
-    margin-top: 4px;
-  }
-
-  /* CONCEPT BAR */
-  .concept-bar {
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-  }
-
-  .concept-pill {
-    padding: 10px 22px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    white-space: nowrap;
-    transition: all 0.2s;
-    border-right: 1px solid var(--border);
-    user-select: none;
-  }
-
+  header h1 { font-family: 'DM Serif Display', serif; font-size: 2rem; line-height: 1.1; letter-spacing: -0.5px; }
+  header h1 em { font-style: italic; color: #c4a97a; }
+  header p.subtitle { margin-top: 4px; color: #a89880; font-size: 0.85rem; font-weight: 300; letter-spacing: 0.5px; }
+  .lesson-tag { background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 2px; align-self: flex-start; margin-top: 4px; }
+  .concept-bar { background: var(--surface2); border-bottom: 1px solid var(--border); display: flex; gap: 0; overflow-x: auto; }
+  .concept-pill { padding: 10px 22px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--ink-muted); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; border-right: 1px solid var(--border); user-select: none; }
   .concept-pill:hover { color: var(--accent); background: var(--highlight); }
   .concept-pill.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--surface); }
-
-  /* MAIN LAYOUT */
-  .main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    min-height: calc(100vh - 140px);
-  }
-
-  /* LEFT PANEL - Controls */
-  .left-panel {
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    background: var(--surface);
-  }
-
-  .panel-header {
-    padding: 16px 24px 12px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .panel-header .panel-icon {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  .panel-header h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1rem;
-    font-weight: 400;
-  }
-
-  .panel-header .panel-desc {
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    margin-top: 1px;
-  }
-
+  .main { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: calc(100vh - 140px); }
+  .left-panel { border-right: 1px solid var(--border); display: flex; flex-direction: column; background: var(--surface); }
+  .panel-header { padding: 16px 24px 12px; border-bottom: 1px solid var(--border); background: var(--surface2); display: flex; align-items: center; gap: 10px; }
+  .panel-header .panel-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .panel-header h2 { font-family: 'DM Serif Display', serif; font-size: 1rem; font-weight: 400; }
+  .panel-header .panel-desc { font-size: 0.75rem; color: var(--ink-muted); margin-top: 1px; }
   .panel-content { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 18px; overflow-y: auto; }
-
-  /* SECTION LABELS */
-  .field-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .field-label .badge {
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.6rem;
-    padding: 1px 6px;
-    border-radius: 2px;
-    letter-spacing: 0.5px;
-  }
-
+  .field-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .field-label .badge { background: var(--accent); color: #fff; font-size: 0.6rem; padding: 1px 6px; border-radius: 2px; letter-spacing: 0.5px; }
   .field-label .badge.green { background: var(--accent2); }
-  .field-label .badge.blue { background: var(--accent3); }
-
-  textarea, input[type="text"] {
-    width: 100%;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 10px 12px;
-    color: var(--ink);
-    resize: vertical;
-    transition: border-color 0.2s;
-    line-height: 1.5;
-  }
-
-  textarea:focus, input:focus {
-    outline: none;
-    border-color: var(--accent);
-    background: #fff;
-  }
-
+  textarea, input[type="text"] { width: 100%; font-family: 'DM Mono', monospace; font-size: 0.8rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; color: var(--ink); resize: vertical; transition: border-color 0.2s; line-height: 1.5; }
+  textarea:focus, input:focus { outline: none; border-color: var(--accent); background: #fff; }
   #system-prompt { min-height: 90px; }
   #user-prompt { min-height: 70px; }
-
-  .help-text {
-    font-size: 0.72rem;
-    color: var(--ink-muted);
-    margin-top: 5px;
-    line-height: 1.4;
-  }
-
-  /* CONTROLS ROW */
-  .controls-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
+  .help-text { font-size: 0.72rem; color: var(--ink-muted); margin-top: 5px; line-height: 1.4; }
+  .controls-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   .slider-group { flex: 1; min-width: 140px; }
-
-  .slider-group label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 4px;
-  }
-
-  .slider-group label span {
-    font-family: 'DM Mono', monospace;
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  input[type="range"] {
-    width: 100%;
-    accent-color: var(--accent);
-    height: 4px;
-  }
-
-  /* MODEL SELECT */
-  select {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 7px 10px;
-    color: var(--ink);
-    cursor: pointer;
-    width: 100%;
-  }
-
+  .slider-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--ink-muted); display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .slider-group label span { font-family: 'DM Mono', monospace; color: var(--accent); font-weight: 500; }
+  input[type="range"] { width: 100%; accent-color: var(--accent); height: 4px; }
+  select { font-family: 'DM Mono', monospace; font-size: 0.78rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 7px 10px; color: var(--ink); cursor: pointer; width: 100%; }
   select:focus { outline: none; border-color: var(--accent); }
-
-  /* SEND BUTTON */
-  .send-btn {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 12px 28px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    justify-content: center;
-  }
-
+  .send-btn { background: var(--accent); color: #fff; border: none; padding: 12px 28px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; border-radius: 4px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
   .send-btn:hover { background: #7a4f32; transform: translateY(-1px); }
   .send-btn:active { transform: translateY(0); }
   .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  /* RIGHT PANEL */
-  .right-panel {
-    display: flex;
-    flex-direction: column;
-    background: var(--surface);
-  }
-
-  /* TABS */
-  .tab-bar {
-    display: flex;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-  }
-
-  .tab {
-    padding: 10px 18px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-    user-select: none;
-  }
-
+  .right-panel { display: flex; flex-direction: column; background: var(--surface); }
+  .tab-bar { display: flex; border-bottom: 1px solid var(--border); background: var(--surface2); }
+  .tab { padding: 10px 18px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--ink-muted); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; user-select: none; }
   .tab:hover { color: var(--accent); }
   .tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--surface); }
-
   .tab-content { display: none; flex: 1; flex-direction: column; overflow: auto; }
   .tab-content.active { display: flex; }
-
-  /* RESPONSE AREA */
-  #response-area {
-    flex: 1;
-    padding: 24px;
-    overflow-y: auto;
-  }
-
-  .response-empty {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--ink-muted);
-    text-align: center;
-    gap: 12px;
-  }
-
+  #response-area { flex: 1; padding: 24px; overflow-y: auto; }
+  .response-empty { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--ink-muted); text-align: center; gap: 12px; }
   .response-empty .big-icon { font-size: 2.5rem; opacity: 0.4; }
   .response-empty p { font-size: 0.85rem; max-width: 240px; line-height: 1.5; }
-
-  .response-bubble {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 18px 20px;
-    font-size: 0.88rem;
-    line-height: 1.7;
-    white-space: pre-wrap;
-    animation: fadeIn 0.3s ease;
-  }
-
+  .response-bubble { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; font-size: 0.88rem; line-height: 1.7; white-space: pre-wrap; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-  .response-meta {
-    margin-top: 12px;
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .meta-chip {
-    font-size: 0.72rem;
-    font-family: 'DM Mono', monospace;
-    color: var(--ink-muted);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    padding: 3px 10px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .meta-chip .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent2);
-  }
-
-  /* JSON PANEL */
-  #json-area {
-    flex: 1;
-    padding: 0;
-    overflow: auto;
-    background: var(--code-bg);
-  }
-
-  #json-display {
-    padding: 20px 24px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.76rem;
-    color: var(--code-fg);
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-break: break-word;
-    min-height: 100%;
-  }
-
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .response-meta { margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .meta-chip { font-size: 0.72rem; font-family: 'DM Mono', monospace; color: var(--ink-muted); background: var(--surface2); border: 1px solid var(--border); padding: 3px 10px; border-radius: 12px; display: flex; align-items: center; gap: 5px; }
+  .meta-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); }
+  #json-area { flex: 1; padding: 0; overflow: auto; background: var(--code-bg); }
+  #json-display, #request-json-display { padding: 20px 24px; font-family: 'DM Mono', monospace; font-size: 0.76rem; color: var(--code-fg); line-height: 1.6; white-space: pre-wrap; word-break: break-word; min-height: 100%; }
   .json-key { color: #c4a97a; }
   .json-str { color: #a8c5a0; }
   .json-num { color: #88b4c8; }
   .json-bool { color: #e8a87c; }
   .json-null { color: #a89880; }
-
-  /* CONCEPTS PANEL */
-  #concepts-area {
-    flex: 1;
-    padding: 20px 24px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .concept-card {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    transition: all 0.2s;
-  }
-
-  .concept-card-header {
-    background: var(--surface2);
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    user-select: none;
-  }
-
+  .divider { border: none; border-top: 1px solid var(--border); margin: 4px 0; }
+  .agent-demo { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 16px; }
+  .agent-demo h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+  .agent-demo p { font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 12px; line-height: 1.5; }
+  .agent-result { font-family: 'DM Mono', monospace; font-size: 0.75rem; background: var(--code-bg); color: var(--code-fg); padding: 12px; border-radius: 4px; white-space: pre-wrap; line-height: 1.5; min-height: 60px; }
+  .error-box { background: #fdf0ee; border: 1px solid #e8c5c0; border-radius: 6px; padding: 14px 18px; color: var(--red); font-size: 0.85rem; }
+  .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+  .concept-card { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .concept-card-header { background: var(--surface2); padding: 10px 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
   .concept-card-header:hover { background: var(--highlight); }
-
-  .concept-num {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .concept-card-title {
-    font-weight: 600;
-    font-size: 0.85rem;
-    flex: 1;
-  }
-
-  .concept-card-body {
-    padding: 14px 16px;
-    font-size: 0.82rem;
-    line-height: 1.6;
-    color: var(--ink);
-    background: #fff;
-    display: none;
-  }
-
+  .concept-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .concept-card-title { font-weight: 600; font-size: 0.85rem; flex: 1; }
+  .concept-card-body { padding: 14px 16px; font-size: 0.82rem; line-height: 1.6; display: none; background: var(--surface); }
   .concept-card.open .concept-card-body { display: block; }
-
-  .concept-card-body code {
-    font-family: 'DM Mono', monospace;
-    background: var(--surface2);
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-size: 0.78rem;
-    color: var(--accent);
-  }
-
-  .concept-card-body .callout {
-    background: var(--surface2);
-    border-left: 3px solid var(--accent);
-    padding: 8px 12px;
-    margin-top: 10px;
-    border-radius: 0 4px 4px 0;
-    font-size: 0.8rem;
-    font-style: italic;
-    color: var(--ink-muted);
-  }
-
-  /* LOADING SPINNER */
-  .spinner {
-    display: inline-block;
-    width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ERROR */
-  .error-box {
-    background: #fdf0ee;
-    border: 1px solid #e8c4be;
-    border-radius: 4px;
-    padding: 14px 16px;
-    color: var(--red);
-    font-size: 0.82rem;
-    line-height: 1.5;
-  }
-
-  /* DIVIDER */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 4px 0;
-  }
-
-  /* AGENT SECTION */
-  .agent-demo {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 14px 16px;
-  }
-
-  .agent-demo h4 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 0.92rem;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .agent-demo p { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 10px; line-height: 1.5; }
-
-  .agent-result {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.76rem;
-    background: var(--code-bg);
-    color: var(--code-fg);
-    padding: 10px 12px;
-    border-radius: 4px;
-    min-height: 36px;
-    white-space: pre-wrap;
-    line-height: 1.5;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 720px) {
-    .main { grid-template-columns: 1fr; }
-    .left-panel { border-right: none; border-bottom: 1px solid var(--border); }
-    header { padding: 18px 20px 16px; }
-    header h1 { font-size: 1.5rem; }
-  }
+  .concept-card-body code { font-family: 'DM Mono', monospace; background: var(--surface2); padding: 1px 5px; border-radius: 3px; font-size: 0.78rem; }
+  .callout { margin-top: 12px; background: var(--highlight); border-left: 3px solid var(--accent); padding: 8px 12px; font-size: 0.8rem; border-radius: 0 4px 4px 0; color: var(--ink-muted); }
+  #concepts-area { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+  @media (max-width: 700px) { .main { grid-template-columns: 1fr; } .left-panel { border-right: none; border-bottom: 1px solid var(--border); } }
 </style>
 </head>
 <body>
 
 <header>
   <div class="title-block">
-    <div class="lesson-tag">AI Literacy · Lesson Demo</div>
-    <h1>Under the <em>Hood</em></h1>
-    <p class="subtitle">Chatbot vs. API — what actually happens when you talk to AI?</p>
+    <h1>Under the Hood: <em>Chatbot vs. API</em></h1>
+    <p class="subtitle">An interactive demo for AI literacy — live API calls run right here</p>
   </div>
+  <div class="lesson-tag">Live Demo</div>
 </header>
 
 <div class="concept-bar">
-  <div class="concept-pill active" onclick="switchView('demo')">🔧 Live Demo</div>
-  <div class="concept-pill" onclick="switchView('concepts')">📚 Key Concepts</div>
+  <div class="concept-pill active" onclick="switchView('demo', this)">🔬 Live API Demo</div>
+  <div class="concept-pill" onclick="switchView('concepts', this)">📚 Key Concepts</div>
 </div>
 
-<!-- DEMO VIEW -->
 <div id="view-demo" class="main">
-
-  <!-- LEFT: INPUT CONTROLS -->
   <div class="left-panel">
     <div class="panel-header">
-      <div class="panel-icon" style="background:#e8dcc8">🎛️</div>
+      <div class="panel-icon" style="background:#e8dcc8">🧑‍💻</div>
       <div>
-        <h2>Your API Request</h2>
-        <div class="panel-desc">You are the developer. You control everything.</div>
+        <h2>API Request</h2>
+        <div class="panel-desc">What you send to the model service</div>
       </div>
     </div>
     <div class="panel-content">
-
-      <!-- SYSTEM PROMPT -->
       <div>
-        <div class="field-label">
-          System Prompt <span class="badge">developer sets this</span>
-        </div>
-        <textarea id="system-prompt">You are a friendly and concise assistant. Keep all answers to 2-3 sentences unless asked for more detail. Always end your response with an interesting related fact.</textarea>
-        <p class="help-text">💡 This is invisible to users in a chatbot — but here you can edit it! Try changing the personality or adding a rule.</p>
+        <div class="field-label">System Prompt <span class="badge">you control this</span></div>
+        <textarea id="system-prompt">You are a helpful and concise assistant. Explain things clearly for a non-technical audience.</textarea>
+        <p class="help-text">💡 In a chatbot like Claude.ai, this is hidden. Here you set it yourself.</p>
       </div>
-
-      <hr class="divider">
-
-      <!-- USER PROMPT -->
       <div>
-        <div class="field-label">
-          User Message <span class="badge green">user types this</span>
-        </div>
+        <div class="field-label">User Message <span class="badge green">user types this</span></div>
         <textarea id="user-prompt">What is the difference between the internet and the World Wide Web?</textarea>
       </div>
-
-      <!-- MODEL + TEMP -->
       <div>
         <div class="field-label">Model</div>
         <select id="model-select">
@@ -602,7 +145,6 @@
           <option value="claude-haiku-4-5-20251001">claude-haiku-4-5-20251001 (faster)</option>
         </select>
       </div>
-
       <div class="controls-row">
         <div class="slider-group">
           <label>Temperature <span id="temp-val">0.7</span></label>
@@ -614,28 +156,22 @@
         </div>
       </div>
       <p class="help-text">🌡️ Temperature controls randomness (0 = focused, 1 = creative). Tokens limit response length.</p>
-
       <button class="send-btn" id="send-btn" onclick="sendRequest()">
         <span id="btn-label">Send API Request →</span>
         <div id="btn-spinner" class="spinner" style="display:none"></div>
       </button>
-
       <hr class="divider">
-
-      <!-- AGENT DEMO -->
       <div class="agent-demo">
-        <h4>🤖 Agent Peek: What Could Happen Next?</h4>
-        <p>In an agent, the model's response can <strong>trigger actions</strong>. Click below to see what a simple agent might do with the response.</p>
+        <h4>🤖 Live Weather Agent</h4>
+        <p>Ask about weather in any city (e.g. <em>"What's the weather like in Tokyo?"</em>), send the request above, then run the agent. It will: extract the city → search real weather data → compose a natural answer.</p>
         <button class="send-btn" id="agent-btn" onclick="runAgentStep()" style="background:var(--accent2); margin-bottom:10px;" disabled>
-          Run Agent Step →
+          ⛅ Run Weather Agent →
         </button>
-        <div class="agent-result" id="agent-result">← Get a response first, then run an agent step on it.</div>
+        <div class="agent-result" id="agent-result">← Ask about weather in a city, send the request, then click Run Weather Agent.</div>
       </div>
-
     </div>
   </div>
 
-  <!-- RIGHT: OUTPUT -->
   <div class="right-panel">
     <div class="panel-header">
       <div class="panel-icon" style="background:#dde8da">📨</div>
@@ -644,14 +180,11 @@
         <div class="panel-desc">What comes back from the model service</div>
       </div>
     </div>
-
     <div class="tab-bar">
-      <div class="tab active" onclick="switchTab('response')">Friendly Output</div>
-      <div class="tab" onclick="switchTab('json')">Raw JSON</div>
-      <div class="tab" onclick="switchTab('request-json')">Request JSON</div>
+      <div class="tab active" onclick="switchTab('response', this)">Friendly Output</div>
+      <div class="tab" onclick="switchTab('json', this)">Raw JSON</div>
+      <div class="tab" onclick="switchTab('request-json', this)">Request JSON</div>
     </div>
-
-    <!-- FRIENDLY RESPONSE -->
     <div class="tab-content active" id="tab-response">
       <div id="response-area">
         <div class="response-empty">
@@ -660,116 +193,48 @@
         </div>
       </div>
     </div>
-
-    <!-- RAW RESPONSE JSON -->
     <div class="tab-content" id="tab-json">
       <div id="json-area">
-        <pre id="json-display" style="color:#a89880; font-style:italic;">// Send a request to see the raw API response object here.</pre>
+        <pre id="json-display" style="color:#a89880; font-style:italic; padding:20px 24px; font-family:'DM Mono',monospace; font-size:0.76rem; line-height:1.6;">// Send a request to see the raw API response object here.</pre>
       </div>
     </div>
-
-    <!-- REQUEST JSON -->
     <div class="tab-content" id="tab-request-json">
       <div id="json-area" style="background:var(--code-bg)">
         <pre id="request-json-display" style="color:#a89880; font-style:italic; padding:20px 24px; font-family:'DM Mono',monospace; font-size:0.76rem; line-height:1.6;">// The JSON you would send to the API will appear here.</pre>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- CONCEPTS VIEW -->
 <div id="view-concepts" style="display:none; padding: 28px 32px; max-width: 800px; margin: 0 auto;">
   <h2 style="font-family:'DM Serif Display',serif; font-size:1.6rem; margin-bottom:6px;">Key Concepts</h2>
   <p style="color:var(--ink-muted); font-size:0.85rem; margin-bottom:22px;">Click each concept to expand. Use these as discussion prompts with your class.</p>
-
   <div id="concepts-area">
-
     <div class="concept-card open">
-      <div class="concept-card-header" onclick="toggleCard(this)">
-        <div class="concept-num">1</div>
-        <div class="concept-card-title">What is a chatbot?</div>
-        <span>▾</span>
-      </div>
-      <div class="concept-card-body">
-        A chatbot (like Claude.ai or ChatGPT) is a <strong>complete application</strong>. It bundles together a user interface, conversation memory, safety filters, and access to an AI model — all in one package. You type, it responds. You don't see what's happening behind the curtain.<br><br>
-        Think of it like a <strong>vending machine</strong>: you press a button and get a snack. You don't need to know how the machine works.
-        <div class="callout">Discussion: What are the limitations of only being able to use the "vending machine" version of AI?</div>
-      </div>
+      <div class="concept-card-header" onclick="toggleCard(this)"><div class="concept-num">1</div><div class="concept-card-title">What is a chatbot?</div><span>▾</span></div>
+      <div class="concept-card-body">A chatbot (like Claude.ai or ChatGPT) is a <strong>complete application</strong>. It bundles a user interface, conversation memory, safety filters, and access to an AI model — all in one package. You type, it responds. You don't see what's behind the curtain.<br><br>Think of it like a <strong>vending machine</strong>: press a button, get a snack. No need to know how the machine works.<div class="callout">Discussion: What are the limitations of only having the "vending machine" version of AI?</div></div>
     </div>
-
     <div class="concept-card">
-      <div class="concept-card-header" onclick="toggleCard(this)">
-        <div class="concept-num">2</div>
-        <div class="concept-card-title">What is an API?</div>
-        <span>▾</span>
-      </div>
-      <div class="concept-card-body">
-        An <strong>API (Application Programming Interface)</strong> is a way for software to talk to other software. When you use the AI API, you're sending a structured message directly to the model service — and getting a structured message back.<br><br>
-        You control: the <code>system prompt</code>, the <code>user message</code>, the <code>model</code>, the <code>temperature</code>, and the <code>max_tokens</code>. Nothing is hidden.<br><br>
-        Think of it like <strong>talking directly to the chef</strong> instead of ordering from a menu.
-        <div class="callout">Try it: Edit the system prompt in the demo and see how the model's personality changes completely.</div>
-      </div>
+      <div class="concept-card-header" onclick="toggleCard(this)"><div class="concept-num">2</div><div class="concept-card-title">What is an API?</div><span>▾</span></div>
+      <div class="concept-card-body">An <strong>API (Application Programming Interface)</strong> is a way for software to talk to other software. When you use the AI API, you're sending a structured message directly to the model service — and getting a structured message back.<br><br>You control: the <code>system prompt</code>, the <code>user message</code>, the <code>model</code>, the <code>temperature</code>, and <code>max_tokens</code>. Nothing is hidden.<br><br>Think of it like <strong>talking directly to the chef</strong> instead of ordering from a menu.<div class="callout">Try it: Edit the system prompt and see how the model's personality changes completely.</div></div>
     </div>
-
     <div class="concept-card">
-      <div class="concept-card-header" onclick="toggleCard(this)">
-        <div class="concept-num">3</div>
-        <div class="concept-card-title">What is a System Prompt?</div>
-        <span>▾</span>
-      </div>
-      <div class="concept-card-body">
-        The <strong>system prompt</strong> is a set of instructions given to the model <em>before</em> the user says anything. In a commercial chatbot, this is set by the company and kept secret. When you use the API, you write it yourself.<br><br>
-        System prompts can define: a persona, rules to follow, a tone of voice, what topics to avoid, or even a character in a game.<br><br>
-        <code>"You are a sarcastic pirate who only speaks in rhyme..."</code> — totally valid system prompt!
-        <div class="callout">Key insight: Every AI chatbot you've ever used had a system prompt. You just couldn't see it.</div>
-      </div>
+      <div class="concept-card-header" onclick="toggleCard(this)"><div class="concept-num">3</div><div class="concept-card-title">What is a System Prompt?</div><span>▾</span></div>
+      <div class="concept-card-body">The <strong>system prompt</strong> is a set of instructions given to the model <em>before</em> the user says anything. In a commercial chatbot, this is set by the company and kept secret. When you use the API, you write it yourself.<br><br>System prompts can define: a persona, rules to follow, a tone of voice, topics to avoid, or even a character in a game.<br><br><code>"You are a sarcastic pirate who only speaks in rhyme..."</code> — totally valid!<div class="callout">Key insight: Every AI chatbot you've ever used had a system prompt. You just couldn't see it.</div></div>
     </div>
-
     <div class="concept-card">
-      <div class="concept-card-header" onclick="toggleCard(this)">
-        <div class="concept-num">4</div>
-        <div class="concept-card-title">Temperature &amp; Tokens — the knobs</div>
-        <span>▾</span>
-      </div>
-      <div class="concept-card-body">
-        <strong>Temperature</strong> controls how "creative" or "random" the model is. At <code>0</code>, it always picks the most likely next word (predictable, focused). At <code>1</code>, it takes more risks (creative, surprising, sometimes strange).<br><br>
-        <strong>Tokens</strong> are the basic units the model processes — roughly ¾ of a word. <code>max_tokens</code> limits how long the response can be. This also affects cost — you pay per token in production APIs.<br><br>
-        Try setting temperature to 0 and asking the same question twice. Then try 1.0 twice. Notice the difference?
-        <div class="callout">Business context: Temperature 0 is best for data extraction. Temperature 0.7–1 is better for marketing copy and creative writing.</div>
-      </div>
+      <div class="concept-card-header" onclick="toggleCard(this)"><div class="concept-num">4</div><div class="concept-card-title">Temperature &amp; Tokens — the knobs</div><span>▾</span></div>
+      <div class="concept-card-body"><strong>Temperature</strong> controls how "creative" the model is. At <code>0</code>, it picks the most likely next word (predictable, focused). At <code>1</code>, it takes more risks (creative, surprising).<br><br><strong>Tokens</strong> are the basic units the model processes — roughly ¾ of a word. <code>max_tokens</code> limits response length. You pay per token in production APIs.<div class="callout">Business context: Temperature 0 is best for data extraction. Temperature 0.7–1 is better for marketing copy and creative writing.</div></div>
     </div>
-
     <div class="concept-card">
-      <div class="concept-card-header" onclick="toggleCard(this)">
-        <div class="concept-num">5</div>
-        <div class="concept-card-title">What is an AI Agent?</div>
-        <span>▾</span>
-      </div>
-      <div class="concept-card-body">
-        An <strong>agent</strong> is when an AI model's output is used to <em>drive further actions</em> — not just display text to a human. The model becomes a decision-maker in a workflow.<br><br>
-        Simple example: User asks "what's the weather in Paris?" → Model says "Paris" → Agent code extracts the city name → Agent calls a weather API → Agent feeds the weather data back to the model → Model gives a full answer.<br><br>
-        The model isn't browsing the internet. It's being <strong>orchestrated by code</strong> that calls tools on its behalf.<br><br>
-        In the demo, the "Agent Step" button shows a tiny example: it reads the model's response and decides what kind of follow-up action an agent might take.
-        <div class="callout">The key mental model: Agent = API call + decision logic + more API calls.</div>
-      </div>
+      <div class="concept-card-header" onclick="toggleCard(this)"><div class="concept-num">5</div><div class="concept-card-title">What is an AI Agent?</div><span>▾</span></div>
+      <div class="concept-card-body">An <strong>agent</strong> is when an AI model's output drives further actions — not just displays text. The model becomes a decision-maker in a workflow.<br><br>Example: User asks "weather in Paris?" → Model extracts "Paris" → Code calls a weather source → Data fed back to model → Model gives a full answer.<br><br>The model isn't browsing the internet itself. It's being <strong>orchestrated by code</strong> that calls tools on its behalf.<div class="callout">The key mental model: Agent = API call + decision logic + more API calls.</div></div>
     </div>
-
     <div class="concept-card">
-      <div class="concept-card-header" onclick="toggleCard(this)">
-        <div class="concept-num">6</div>
-        <div class="concept-card-title">Chatbot vs API: Side-by-side</div>
-        <span>▾</span>
-      </div>
+      <div class="concept-card-header" onclick="toggleCard(this)"><div class="concept-num">6</div><div class="concept-card-title">Chatbot vs API: Side-by-side</div><span>▾</span></div>
       <div class="concept-card-body">
         <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
-          <thead>
-            <tr style="background:var(--surface2)">
-              <th style="padding:7px 10px; text-align:left; border:1px solid var(--border);">Feature</th>
-              <th style="padding:7px 10px; text-align:left; border:1px solid var(--border);">Chatbot</th>
-              <th style="padding:7px 10px; text-align:left; border:1px solid var(--border);">API</th>
-            </tr>
-          </thead>
+          <thead><tr style="background:var(--surface2)"><th style="padding:7px 10px; text-align:left; border:1px solid var(--border);">Feature</th><th style="padding:7px 10px; text-align:left; border:1px solid var(--border);">Chatbot</th><th style="padding:7px 10px; text-align:left; border:1px solid var(--border);">API</th></tr></thead>
           <tbody>
             <tr><td style="padding:6px 10px; border:1px solid var(--border);">System Prompt</td><td style="padding:6px 10px; border:1px solid var(--border);">Hidden, set by company</td><td style="padding:6px 10px; border:1px solid var(--border);">You write it</td></tr>
             <tr style="background:var(--bg)"><td style="padding:6px 10px; border:1px solid var(--border);">Model choice</td><td style="padding:6px 10px; border:1px solid var(--border);">Fixed by platform</td><td style="padding:6px 10px; border:1px solid var(--border);">You choose</td></tr>
@@ -781,7 +246,6 @@
         </table>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -789,59 +253,48 @@
 let lastResponse = null;
 let lastRequestBody = null;
 
+async function callClaude({ model, system, messages, max_tokens, temperature, tools }) {
+  const body = { model, max_tokens, messages };
+  if (system) body.system = system;
+  if (temperature !== undefined) body.temperature = temperature;
+  if (tools) body.tools = tools;
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  return res.json();
+}
+
 async function sendRequest() {
   const systemPrompt = document.getElementById('system-prompt').value.trim();
   const userPrompt = document.getElementById('user-prompt').value.trim();
   const model = document.getElementById('model-select').value;
   const temperature = parseFloat(document.getElementById('temperature').value);
   const maxTokens = parseInt(document.getElementById('max-tokens').value);
-
   if (!userPrompt) return;
 
-  // Show loading
   document.getElementById('send-btn').disabled = true;
   document.getElementById('btn-label').textContent = 'Calling API...';
   document.getElementById('btn-spinner').style.display = 'inline-block';
   document.getElementById('agent-btn').disabled = true;
+  document.getElementById('response-area').innerHTML = `<div class="response-empty"><div class="big-icon" style="animation:spin 1s linear infinite;display:inline-block">⚙️</div><p>Waiting for model response...</p></div>`;
 
-  document.getElementById('response-area').innerHTML = `
-    <div class="response-empty">
-      <div class="big-icon" style="animation: spin 1s linear infinite; display:inline-block">⚙️</div>
-      <p>Waiting for model response...</p>
-    </div>`;
-
-  // Build request
-  const requestBody = {
-    model: model,
-    max_tokens: maxTokens,
-    temperature: temperature,
-    system: systemPrompt,
-    messages: [{ role: "user", content: userPrompt }]
-  };
-
+  const requestBody = { model, max_tokens: maxTokens, temperature, system: systemPrompt, messages: [{ role: "user", content: userPrompt }] };
   lastRequestBody = requestBody;
   showRequestJson(requestBody);
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody)
-    });
-
-    const data = await response.json();
-
+    const data = await callClaude(requestBody);
     if (data.error) {
       showError(data.error.message);
     } else {
       lastResponse = data;
-      const text = data.content?.[0]?.text || "(no text content)";
-      showResponse(text, data);
+      showResponse(data.content?.[0]?.text || "(no text content)", data);
       showJson(data);
-      document.getElementById('agent-result').textContent = '← Response received! Click "Run Agent Step" to see what an agent might do next.';
+      document.getElementById('agent-result').textContent = '← Response received! If your question mentioned a city, click "Run Weather Agent" to see agent steps in action.';
       document.getElementById('agent-btn').disabled = false;
     }
-
   } catch (err) {
     showError("Network error: " + err.message);
   } finally {
@@ -851,19 +304,78 @@ async function sendRequest() {
   }
 }
 
-function showResponse(text, data) {
-  const inputTokens = data.usage?.input_tokens ?? '—';
-  const outputTokens = data.usage?.output_tokens ?? '—';
-  const model = data.model ?? '—';
-  const stopReason = data.stop_reason ?? '—';
+async function runAgentStep() {
+  if (!lastResponse) return;
+  const userQuestion = document.getElementById('user-prompt').value.trim();
+  document.getElementById('agent-btn').disabled = true;
 
+  try {
+    setAgentStatus('🔍 Step 1 of 3: Agent asking Claude to extract city name...');
+    const extractData = await callClaude({
+      model: "claude-haiku-4-5-20251001", max_tokens: 100,
+      system: `Extract the city or location name from the user's message.\nRespond with ONLY a JSON object: {"city": "CityName", "found": true}\nIf no city is found respond: {"city": null, "found": false}\nNo extra text, no markdown.`,
+      messages: [{ role: "user", content: `User asked: "${userQuestion}"` }]
+    });
+    const extractText = extractData.content?.[0]?.text || "{}";
+    let cityInfo;
+    try { cityInfo = JSON.parse(extractText.replace(/```json|```/g, '')); }
+    catch { cityInfo = { found: false }; }
+
+    if (!cityInfo.found || !cityInfo.city) {
+      setAgentStatus('⚠️ No city found in your question.\n\nTry asking something like:\n"What is the weather like in Seattle?"\n"Should I bring a jacket to Tokyo today?"');
+      document.getElementById('agent-btn').disabled = false;
+      return;
+    }
+
+    const city = cityInfo.city;
+    setAgentStatus(`✅ Step 1 complete: City extracted → "${city}"\n\n🌐 Step 2 of 3: Agent calling web search for real weather data...`);
+
+    const searchData = await callClaude({
+      model: "claude-haiku-4-5-20251001", max_tokens: 1000,
+      tools: [{ type: "web_search_20250305", name: "web_search" }],
+      system: `You are a weather data agent. Search for the current weather in the given city and return ONLY a JSON object:\n{"city": "...", "country": "...", "condition": "...", "temp_f": ..., "feels_like_f": ..., "humidity_pct": ..., "wind_mph": ..., "found": true}\nIf weather cannot be found: {"found": false}\nNo extra text, no markdown fences.`,
+      messages: [{ role: "user", content: `Get current weather for: ${city}` }]
+    });
+
+    const textBlocks = (searchData.content || []).filter(b => b.type === 'text');
+    const weatherRaw = textBlocks.length > 0 ? textBlocks[textBlocks.length - 1].text : '{}';
+    let weather;
+    try { weather = JSON.parse(weatherRaw.replace(/```json|```/g, '').trim()); }
+    catch { weather = { found: false }; }
+
+    if (!weather.found) {
+      setAgentStatus(`⚠️ Could not retrieve weather data for "${city}". Try a well-known city name.`);
+      document.getElementById('agent-btn').disabled = false;
+      return;
+    }
+
+    const weatherSummary = `City: ${weather.city}, ${weather.country}\nCondition: ${weather.condition}\nTemperature: ${weather.temp_f}°F (feels like ${weather.feels_like_f}°F)\nHumidity: ${weather.humidity_pct}%\nWind: ${weather.wind_mph} mph`;
+    setAgentStatus(`✅ Step 2 complete: Real weather retrieved via web search!\n\n${weatherSummary}\n\n🤖 Step 3 of 3: Feeding data back to Claude for a natural answer...`);
+
+    const finalData = await callClaude({
+      model: "claude-haiku-4-5-20251001", max_tokens: 200,
+      system: "You are a helpful assistant. Answer the user's weather question using the real-time data provided. Be friendly and conversational. 2-3 sentences.",
+      messages: [{ role: "user", content: `The user asked: "${userQuestion}"\n\nCurrent weather data:\n${weatherSummary}\n\nPlease answer their question.` }]
+    });
+    const finalAnswer = finalData.content?.[0]?.text || "(no response)";
+
+    setAgentStatus(`✅ All 3 agent steps complete!\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━\nSTEP 1 → Claude extracted city: "${city}"\nSTEP 2 → Web search: ${weather.temp_f}°F, ${weather.condition}\nSTEP 3 → Claude's final answer:\n\n"${finalAnswer}"`);
+
+  } catch(e) {
+    setAgentStatus('❌ Agent error: ' + e.message);
+  } finally {
+    document.getElementById('agent-btn').disabled = false;
+  }
+}
+
+function showResponse(text, data) {
   document.getElementById('response-area').innerHTML = `
     <div class="response-bubble">${escapeHtml(text)}</div>
     <div class="response-meta">
-      <div class="meta-chip"><div class="dot" style="background:var(--accent3)"></div>model: ${model}</div>
-      <div class="meta-chip"><div class="dot"></div>in: ${inputTokens} tokens</div>
-      <div class="meta-chip"><div class="dot" style="background:var(--yellow)"></div>out: ${outputTokens} tokens</div>
-      <div class="meta-chip"><div class="dot" style="background:var(--accent)"></div>stop: ${stopReason}</div>
+      <div class="meta-chip"><div class="dot" style="background:var(--accent3)"></div>model: ${data.model ?? '—'}</div>
+      <div class="meta-chip"><div class="dot"></div>in: ${data.usage?.input_tokens ?? '—'} tokens</div>
+      <div class="meta-chip"><div class="dot" style="background:var(--yellow)"></div>out: ${data.usage?.output_tokens ?? '—'} tokens</div>
+      <div class="meta-chip"><div class="dot" style="background:var(--accent)"></div>stop: ${data.stop_reason ?? '—'}</div>
     </div>`;
 }
 
@@ -872,88 +384,37 @@ function showError(msg) {
   document.getElementById('json-display').innerHTML = `<span style="color:#e8a87c">// Error — no response JSON</span>`;
 }
 
-function showJson(data) {
-  document.getElementById('json-display').innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
-}
-
-function showRequestJson(body) {
-  const masked = { ...body, system: body.system ? body.system.substring(0, 60) + (body.system.length > 60 ? '...' : '') : '' };
-  document.getElementById('request-json-display').innerHTML = syntaxHighlight(JSON.stringify(body, null, 2));
-}
+function showJson(data) { document.getElementById('json-display').innerHTML = syntaxHighlight(JSON.stringify(data, null, 2)); }
+function showRequestJson(body) { document.getElementById('request-json-display').innerHTML = syntaxHighlight(JSON.stringify(body, null, 2)); }
+function setAgentStatus(msg) { document.getElementById('agent-result').textContent = msg; }
 
 function syntaxHighlight(json) {
   return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
     let cls = 'json-num';
-    if (/^"/.test(match)) {
-      cls = /:$/.test(match) ? 'json-key' : 'json-str';
-    } else if (/true|false/.test(match)) {
-      cls = 'json-bool';
-    } else if (/null/.test(match)) {
-      cls = 'json-null';
-    }
+    if (/^"/.test(match)) { cls = /:$/.test(match) ? 'json-key' : 'json-str'; }
+    else if (/true|false/.test(match)) { cls = 'json-bool'; }
+    else if (/null/.test(match)) { cls = 'json-null'; }
     return `<span class="${cls}">${match}</span>`;
   });
 }
 
-function escapeHtml(text) {
-  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function escapeHtml(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-async function runAgentStep() {
-  if (!lastResponse) return;
-  const text = lastResponse.content?.[0]?.text || "";
-  document.getElementById('agent-btn').disabled = true;
-  document.getElementById('agent-result').textContent = '⚙️ Agent analyzing response...';
-
-  try {
-    const agentResponse = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 200,
-        system: `You are an agent decision-maker. Given a text response, decide what action an AI agent MIGHT take next to be helpful. 
-Choose from: SEARCH_WEB(query), SEND_EMAIL(summary), SAVE_TO_DATABASE(key_facts), CALL_WEATHER_API(location), CALL_CALCULATOR(expression), NO_ACTION_NEEDED.
-Respond with ONLY a JSON object like: {"action": "SEARCH_WEB", "params": {"query": "..."}, "reason": "one sentence why"}`,
-        messages: [{ role: "user", content: `Given this AI response, what should an agent do next?\n\n"${text.substring(0, 400)}"` }]
-      })
-    });
-    const agentData = await agentResponse.json();
-    const agentText = agentData.content?.[0]?.text || "{}";
-
-    let parsed;
-    try { parsed = JSON.parse(agentText.replace(/```json|```/g,'')); } catch { parsed = { action: agentText }; }
-
-    document.getElementById('agent-result').textContent =
-      `ACTION: ${parsed.action || '?'}\n` +
-      (parsed.params ? `PARAMS: ${JSON.stringify(parsed.params)}\n` : '') +
-      (parsed.reason ? `REASON: ${parsed.reason}` : '');
-  } catch(e) {
-    document.getElementById('agent-result').textContent = 'Error running agent step: ' + e.message;
-  } finally {
-    document.getElementById('agent-btn').disabled = false;
-  }
-}
-
-function switchTab(tab) {
+function switchTab(tab, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
+  el.classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
 }
 
-function switchView(view) {
+function switchView(view, el) {
   document.querySelectorAll('.concept-pill').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
+  el.classList.add('active');
   document.getElementById('view-demo').style.display = view === 'demo' ? 'grid' : 'none';
   document.getElementById('view-concepts').style.display = view === 'concepts' ? 'block' : 'none';
 }
 
-function toggleCard(header) {
-  const card = header.parentElement;
-  card.classList.toggle('open');
-}
+function toggleCard(header) { header.parentElement.classList.toggle('open'); }
 </script>
-
 </body>
 </html>
