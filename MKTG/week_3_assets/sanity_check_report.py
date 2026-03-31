@@ -1,0 +1,1 @@
+{'row_consistency': False, 'row_count_diff': 1, 'nulls_in_raw': np.int64(0), 'nulls_in_processed': np.int64(0), 'sum_integrity': {'Budget': 'Fail (Diff: 12.600000000000136)', 'Global_Box_Office': 'Fail (Diff: 9171)', 'Release_Year': 'Fail (Diff: 2011)'}, 'range_integrity': {'Budget': 'Out of Bounds', 'Global_Box_Office': 'Out of Bounds', 'Release_Year': 'Safe'}}
