@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+  .image-gallery {
+    display: flex;
+    flex-wrap: wrap; /* Allows them to wrap if the screen gets too small */
+    gap: 16px;       /* Space between the two window cards */
+    justify-content: center;
+  }
 
+  .image-card {
+    border: 2px solid #ccc; /* Creates the "window" frame */
+    border-radius: 8px;     /* Rounded corners */
+    padding: 8px;           /* Inner space around the image */
+    background: #f9f9f9;
+    max-width: 300px;       /* Controls the smaller window size */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .image-card img {
+    width: 100%;            /* Makes image fit neatly inside its window */
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,62 +68,82 @@
                 <thead>
                     <tr>
                         <th scope="col">Description</th>
-                        <th scope="col">Download</th>
+                        <th scope="col">Installation</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">MAC Agent 18.5 MB</th>
-                        <td><a href="./agent_apps/app_mac" download>Download <strong>app_mac</strong></a></td>
+                        <th scope="row">MAC Agent</th>
+                        <td> </td>
                     </tr>
                     <tr>
                         <th scope="row">Instructions</th>
                         <td>
                             <ul>
-                                <li>Download <strong>app_mac</strong></li>
+                                <li>Click <a href="./agent_apps/app_mac" download>
+                                        <strong>app_mac</strong></a> to download the Mac Application
+                                    to your <strong>~/Downloads</strong> folder</li>
                                 <li>Create a directory <strong>
-                                        <<i>~/Documents/KnowledgeAssistant</i>
+                                        <i>~/Documents/KnowledgeAssistant</i>
                                     </strong></li>
                                 <li>Copy <strong>app_mac</strong> into directory</li>
-                                <li>Open Terminal (press Cmd+Space, type "Terminal", press "Return)</li>
-                                <li>Go to folder <strong><i>~/Docments/KnowledgeAssistant</i>: <i>cd
-                                            ~/Documents/KnowledgeAssistant</i></li>strong></strong></li>
+                                <li>Open Terminal (press <strong>Cmd+Space</strong>
+                                    type <strong>"Terminal"</strong> and press
+                                    <strong>"Return"</strong>)
+                                <li>Go to folder <strong>
+                                        <i>~/Docments/KnowledgeAssistant</strong>
+                                    <i>(<strong>cd ~/Documents/KnowledgeAssistant</strong>)</i>
+                                </li>
                                 <li>Make file runnable by typing: <strong><i>chmod +x app_mac</i></strong> </li>
-                                <li>Remove download block by typing: <strong><i>xattr -d com.apple.quarantine
+                                <li>Remove download block by typing in terminal: <strong><i>xattr -d
+                                            com.apple.quarantine
                                             app_mac</i></strong></li>
-
                                 <li>If the command says <strong>"no such xattr"</strong>, that's OK it means the block
                                     wasn't there</li>
-                                <li>Start the app by typing: <strong>./app_mac</strong></li>
-                                <div><img src="../images/mac-run-downloaded-agent.png" width="500"
+                                <li>Start the app by typing in terminal: <strong>./app_mac</strong></li>
+                                <div><img src="../images/mac-run-downloaded-agent.png" width="400"
                                         alt="What to look for when you click on a newly downloaded executable."></div>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Windows Agent 18.4 MB</th>
-                        <td><a href="./agent_apps/app_windows.exe" download>Download <strong>app_windows</strong></a>
-                        </td>
+                        <th scope="row">Windows Agent</th>
+                        <td></td>
                     </tr>
                     <tr>
                         <th scope="row">Instructions</th>
                         <td>
                             <ul>
-                                <li>Download <strong>app_windows</strong></li>
-                                <li>Create a directory
-                                    <i>c:\Users\username-home-directory\Documents\KnowledgeAssistant</i>
+                                <li>Click
+                                    <a href="./agent_apps/app_windows.exe" download>
+                                        <strong>app_windows</strong></a>
+                                    to download the Windows Application
+                                    to your <strong><code>~\Downloads</code></strong> directory
                                 </li>
-                                <li>Copy <strong>app_windows</strong> into directory above</li>
-                                <li>Double click the file</li>
+                                <li>Create a new Directory named <strong><i>KnowledgeAssistant</i></strong>
+                                    under your <strong><code>~\Documents</code></strong> directory</li>
+                                <li>Copy <strong>app_windows.exe</strong> into
+                                    <strong><i><code>~\Documents\KnowledgeAssistant</code></i></strong> above
+                                </li>
+                                <li>Double click the file <strong>app_windows.exe</strong>
+                                    in <strong><i><code>~\Documents\KnowledgeAssistant</code></i></strong></li>
                                 <li>If you see "<strong>Windows protected your PC</strong>" click "<strong>More
                                         info</strong>", then "<strong>Run anyway</strong>" </li>
                                 <li>If your browser warns that the file isn't commonly downloaded, choose
                                     <strong>Keep</strong> in the download menu
                                 </li>
                                 <li>Your browser should open to the app immediately</li>
-                                <div><img src="../images/windows_protected.png" width="300"
+                                <!-- <div><img src="../images/windows_run_anyway.png" width="300"
+                                        alt="What to look for when you click on a newly downloaded executable."></div> -->
+                                <div class="image-gallery">
+                                    <div class="image-card">
+                                        <img src="../images/windows_run_anyway.png" width="300"
                                         alt="What to look for when you click on a newly downloaded executable."></div>
+                                    <div class="image-card">
+                                        <img src="../images/open_to_app_in_browser.png" width="300" alt="Second image">
+                                    </div>
+                                </div>
                             </ul>
                         </td>
                     </tr>
@@ -131,11 +174,11 @@
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 position-sticky bottom-0 w-100 footer-details">
         <div class="container">
-            <p>&copy; 2026 AI at Home</p>
+            <p>&copy; AI at Home</p>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS -  <li>Download <strong>app_windows</strong></li>->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
