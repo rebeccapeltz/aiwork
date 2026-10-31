@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click to Enlarge Image</title>
+  <style>
+    /* 1. Thumbnail Styling */
+    .thumbnail {
+      width: 400px; /* Adjust thumbnail size as needed */
+      cursor: pointer;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .thumbnail:hover {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+
+    /* 2. Hidden Lightbox Overlay Container */
+    .lightbox-overlay {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85); /* Dark transparent background */
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 3. The Enlarge/Popup Image */
+    .lightbox-overlay img {
+      max-width: 90%;
+      max-height: 85%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      border-radius: 4px;
+    }
+
+    /* 4. The Close Button */
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #bbb;
+    }
+
+    /* 5. THE MAGIC: Show the lightbox when the link is clicked */
+    .lightbox-overlay:target {
+      display: flex; /* Overrides display:none when URL matches ID */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Small clickable thumbnail that points to the popup ID -->
+  <a href="#img1">
+    <img src="./images/mac-run-downloaded-agent.png" alt="Thumbnail" class="thumbnail">
+  </a>
+
+  <!-- The Popup Modal (Hidden until clicked) -->
+  <div id="img1" class="lightbox-overlay">
+    <!-- Clicking this button resets the URL hash, hiding the popup -->
+    <a href="#" class="close-btn">&times;</a>
+    
+    <!-- Large image for readability -->
+    <img src="./images/mac-run-downloaded-agent.png" alt="Enlarged Image">
+  </div>
+
+</body>
+</html>

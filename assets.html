@@ -1,29 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-  .image-gallery {
-    display: flex;
-    flex-wrap: wrap; /* Allows them to wrap if the screen gets too small */
-    gap: 16px;       /* Space between the two window cards */
-    justify-content: center;
-  }
+    .image-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        /* Allows them to wrap if the screen gets too small */
+        gap: 16px;
+        /* Space between the two window cards */
+        justify-content: center;
+    }
 
-  .image-card {
-    border: 2px solid #ccc; /* Creates the "window" frame */
-    border-radius: 8px;     /* Rounded corners */
-    padding: 8px;           /* Inner space around the image */
-    background: #f9f9f9;
-    max-width: 300px;       /* Controls the smaller window size */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
+    .image-card {
+        border: 2px solid #ccc;
+        /* Creates the "window" frame */
+        border-radius: 8px;
+        /* Rounded corners */
+        padding: 8px;
+        /* Inner space around the image */
+        background: #f9f9f9;
+        max-width: 300px;
+        /* Controls the smaller window size */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-  .image-card img {
-    width: 100%;            /* Makes image fit neatly inside its window */
-    height: auto;
-    display: block;
-    border-radius: 4px;
-  }
+    .image-card img {
+        width: 100%;
+        /* Makes image fit neatly inside its window */
+        height: auto;
+        display: block;
+        border-radius: 4px;
+    }
+
+    /* 1. Thumbnail Styling */
+    .thumbnail {
+        width: 400px;
+        /* Adjust thumbnail size as needed */
+        cursor: pointer;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .thumbnail:hover {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+
+
+    /* 2. Hidden Lightbox Overlay Container */
+    .lightbox-overlay {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        /* Dark transparent background */
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 3. The Enlarge/Popup Image */
+    .lightbox-overlay img {
+        max-width: 90%;
+        max-height: 85%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+    }
+
+    /* 4. The Close Button */
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+        color: #bbb;
+    }
+
+    /* 5. THE MAGIC: Show the lightbox when the link is clicked */
+    .lightbox-overlay:target {
+        display: flex;
+        /* Overrides display:none when URL matches ID */
+    }
+
+    .black-bg {
+        background-color: black;
+    }
 </style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,8 +176,27 @@
                                 <li>If the command says <strong>"no such xattr"</strong>, that's OK it means the block
                                     wasn't there</li>
                                 <li>Start the app by typing in terminal: <strong>./app_mac</strong></li>
-                                <div><img src="../images/mac-run-downloaded-agent.png" width="400"
-                                        alt="What to look for when you click on a newly downloaded executable."></div>
+                                <!-- <div><img src="../images/mac-run-downloaded-agent.png" width="400"
+                                        alt="What to look for when you click on a newly downloaded executable.">
+                                    </div> -->
+                                <div class="image-gallery">
+                                    <div class="image-card black-bg">
+                                        <a href="#img1">
+                                            <img src="../images/mac-run-downloaded-agent.png" width="300"
+                                                alt="What to look for when you click on a newly downloaded executable.">
+                                        </a>
+                                        <div id="img1" class="lightbox-overlay" data-hover-text="Sunset Beach">
+                                            <!-- Clicking this button resets the URL hash, hiding the popup -->
+                                            <a href="#" class="close-btn">Click to Return</a>
+
+                                            <!-- Large image for readability -->
+                                            <img src="./images/mac-run-downloaded-agent.png" alt="Enlarged Image">
+                                        </div>
+                                    </div>
+                                    <div class="image-card">
+                                        <img src="../images/open_to_app_in_browser.png" width="300" alt="App in browser">
+                                    </div>
+                                </div>
                             </ul>
                         </td>
                     </tr>
@@ -136,12 +229,32 @@
                                 <li>Your browser should open to the app immediately</li>
                                 <!-- <div><img src="../images/windows_run_anyway.png" width="300"
                                         alt="What to look for when you click on a newly downloaded executable."></div> -->
-                                <div class="image-gallery">
+                                <!-- <div class="image-gallery">
                                     <div class="image-card">
                                         <img src="../images/windows_run_anyway.png" width="300"
-                                        alt="What to look for when you click on a newly downloaded executable."></div>
+                                            alt="What to look for when you click on a newly downloaded executable.">
+                                    </div>
                                     <div class="image-card">
                                         <img src="../images/open_to_app_in_browser.png" width="300" alt="Second image">
+                                    </div>
+                                </div> -->
+                                <div class="image-gallery">
+
+                                    <div class="image-card black-bg">
+                                        <a href="#img2">
+                                            <img src="../images/windows_run_anyway.png" width="300"
+                                                alt="What to look for when you click on a newly downloaded executable.">
+                                        </a>
+                                        <div id="img2" class="lightbox-overlay">
+                                            <!-- Clicking this button resets the URL hash, hiding the popup -->
+                                            <a href="#" class="close-btn">Click to Return</a>
+
+                                            <!-- Large image for readability -->
+                                            <img src="../images/windows_run_anyway.png" alt="Enlarged Image">
+                                        </div>
+                                    </div>
+                                    <div class="image-card">
+                                        <img src="../images/open_to_app_in_browser.png" width="300" alt="App in browser">
                                     </div>
                                 </div>
                             </ul>
